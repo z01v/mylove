@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>هي وهو · قلبان ولحنٌ واحد</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 21C6.4 16.3 2.5 12.7 2.5 8.7 2.5 5.6 4.9 3.2 8 3.2c1.7 0 3.2.9 4 2.2.8-1.3 2.3-2.2 4-2.2 3.1 0 5.5 2.4 5.5 5.5 0 4-3.9 7.6-9.5 12.3z' fill='%23b5434e'/></svg>"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --paper:#f2e7d3; --paper-2:#f8f1e2;
+    --ink:#47322d; --ink-soft:rgba(71,50,45,.58); --ink-faint:rgba(71,50,45,.24);
+    --crimson:#b5434e; --crimson-deep:#872d38; --crimson-soft:#d97f86;
+    --gold:#b28a4f;
+    --heart:min(420px, 92vw);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  [hidden]{display:none !important}
+  body{
+    min-height:100vh; display:flex; flex-direction:column; align-items:center;
+    background:var(--paper); color:var(--ink);
+    font-family:'Amiri', 'Traditional Arabic', serif;
+    overflow-x:hidden; animation:pagein .9s ease both;
+    -webkit-tap-highlight-color:transparent;
+  }
+  @keyframes pagein{from{opacity:0}to{opacity:1}}
+  ::selection{background:var(--crimson); color:var(--paper-2)}
+
+  /* حبيبات ورق عتيق + إطار رسالة الحب المزدوج حول الصفحة */
+  body::after{
+    content:''; position:fixed; inset:0; z-index:55; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    opacity:.07; mix-blend-mode:multiply;
+  }
+  .letter-frame{
+    position:fixed; inset:12px; z-index:40; pointer-events:none;
+    border:1px solid rgba(71,50,45,.5);
+    outline:1px solid rgba(71,50,45,.26); outline-offset:5px;
+  }
+
+  /* ---------- الترويسة ---------- */
+  .header{text-align:center; padding:44px 20px 4px}
+  .flourish{width:212px; height:26px; display:block; margin:0 auto 4px}
+  .fl{fill:none; stroke:var(--ink-soft); stroke-width:1.2; stroke-linecap:round}
+  .fl-heart{fill:var(--crimson)}
+  .title{font-family:'Aref Ruqaa','Amiri',serif; font-weight:400; margin:0;
+    font-size:clamp(2.5rem, 6.5vw, 3.9rem); line-height:1.4; color:var(--ink)}
+  .title .amp{color:var(--crimson); padding-inline:.12em}
+  .subtitle{margin:2px 0 0; font-weight:700; font-size:.92rem; word-spacing:.28em; color:var(--ink-soft)}
+  .since{margin:8px 0 0; font-size:1.05rem; color:var(--ink-soft)}
+
+  /* ---------- المسرح ---------- */
+  .stage{
+    position:relative; width:min(1020px, 96vw);
+    display:flex; align-items:center; justify-content:center;
+    gap:clamp(8px, 2.4vw, 30px);
+    margin:clamp(12px, 3.4vh, 38px) 12px 0;
+    user-select:none;
+  }
+  .pair{display:contents}
+  .thread-svg{position:absolute; inset:0; z-index:3; pointer-events:none; overflow:visible}
+  #threadPath{fill:none; stroke:var(--crimson-deep); stroke-width:1.5; opacity:.85}
+  .knot circle{fill:var(--crimson)}
+  .knot path{stroke:var(--crimson-deep); stroke-width:1.1; stroke-linecap:round; fill:none}
+  .notes{opacity:0; transition:opacity .6s ease}
+  .notes .note{color:var(--crimson-deep)}
+
+  /* ---------- الصورتان ---------- */
+  .portrait{position:relative; z-index:2; margin:0; width:250px;
+    transition:transform .5s cubic-bezier(.22,.9,.3,1.2)}
+  .portrait--her{order:1; transform:rotate(3.5deg) translateY(-6px)}
+  .portrait--him{order:3; transform:rotate(-3deg) translateY(9px)}
+  .portrait--her:hover{transform:rotate(5.2deg) translateY(-10px)}
+  .portrait--him:hover{transform:rotate(-4.6deg) translateY(4px)}
+  .portrait-frame{
+    position:relative; background:var(--paper-2);
+    border:1px solid rgba(71,50,45,.45);
+    outline:1px solid rgba(71,50,45,.25); outline-offset:4px;
+    padding:14px 14px 8px;
+    box-shadow:0 14px 26px -16px rgba(71,50,45,.5), inset 0 2px 0 rgba(255,255,255,.55);
+    will-change:transform;
+  }
+  .tape{
+    position:absolute; z-index:3; width:78px; height:22px; top:-11px;
+    background:rgba(181,67,78,.20); box-shadow:inset 0 0 0 1px rgba(181,67,78,.14);
+    clip-path:polygon(2% 8%, 100% 0, 98% 92%, 0 100%);
+  }
+  .tape--l{left:50%; transform:translateX(-50%) rotate(3deg)}
+  .tape--r{left:-10px; right:auto; transform:rotate(-5deg)}
+
+  /* الصورة الحقيقية داخل الإطار — تُطبع كصورة عتيقة على الورق */
+  .photo-wrap{position:relative; background:#fff; overflow:hidden}
+  .photo{
+    display:block; width:100%; height:auto;
+    max-height:430px; object-fit:cover; object-position:50% 22%;
+    background:#fff;
+    filter:sepia(.16) saturate(.93) contrast(.97);
+  }
+  .photo-wrap.ok::after{ /* تظليل حواف خفيف يوحّد الصورتين مع أجواء الورق */
+    content:''; position:absolute; inset:0; pointer-events:none;
+    box-shadow:inset 0 0 46px rgba(71,50,45,.30), inset 0 0 10px rgba(71,50,45,.14);
+  }
+  /* الرسمة الحبرية الاحتياطية (تظهر فقط إن فشل تحميل الصورة) */
+  .face{display:block; width:100%; height:auto}
+  .face .s{stroke:var(--ink); stroke-width:2.4; fill:none; stroke-linecap:round; stroke-linejoin:round}
+  .face .t{stroke:var(--ink); stroke-width:1.5; fill:none; stroke-linecap:round}
+  .face .blush{fill:var(--crimson); opacity:.13}
+  .face .mark{fill:var(--ink)}
+  .face .petal{fill:rgba(181,67,78,.16); stroke:var(--crimson); stroke-width:1.2}
+  .face .dot{fill:var(--gold)}
+  .face .pendant{fill:var(--crimson)}
+
+  figcaption{text-align:center; margin-top:12px; display:flex; flex-direction:column; gap:2px}
+  .name{font-family:'Aref Ruqaa','Amiri',serif; font-size:1.9rem; line-height:1.35; color:var(--ink)}
+  .tag{font-weight:700; font-size:.8rem; word-spacing:.14em; color:var(--ink-soft);
+    display:flex; align-items:center; justify-content:center; gap:7px}
+  .tag em{font-style:normal}
+  .mini-heart{width:13px; height:13px; fill:var(--crimson); flex:none; will-change:transform}
+
+  /* ---------- القلب: زرّ التشغيل والمُشكِّل الصوتي معًا ---------- */
+  .heart-zone{order:2; position:relative; z-index:4; width:var(--heart); height:var(--heart); flex:none}
+  #heartCanvas{display:block; width:100%; height:100%}
+  .heart-btn{
+    position:absolute; inset:0; width:100%; height:100%;
+    background:none; border:none; padding:0; cursor:pointer; display:block;
+  }
+  .hit-svg{position:absolute; inset:0; width:100%; height:100%; overflow:visible}
+  .hit{fill:transparent; cursor:pointer}
+  .heart-btn:focus-visible{outline:none}
+  .heart-btn:focus-visible .hit{stroke:var(--ink); stroke-width:1.4; stroke-dasharray:4 7}
+  .glyphs{position:absolute; left:50%; top:50.5%; transform:translate(-50%,-50%); pointer-events:none}
+  .glyph{width:42px; height:42px; display:block; fill:var(--crimson)}
+  .glyph-play{transform-origin:center; animation:gpulse 2.6s ease-in-out infinite}
+  @keyframes gpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+  .glyph-pause{display:none; fill:var(--paper-2)}
+  body.is-playing .glyph-play{display:none}
+  body.is-playing .heart-btn:hover .glyph-pause{display:block; opacity:.85}
+  .hint{
+    position:absolute; left:50%; bottom:-4px; transform:translateX(-50%);
+    margin:0; white-space:nowrap; font-weight:700; font-size:.8rem; word-spacing:.16em;
+    color:var(--ink-soft); transition:color .4s;
+  }
+  body.is-playing .hint{color:var(--crimson)}
+
+  /* ---------- شريط التحكم ---------- */
+  .controls{
+    width:min(920px, 92vw); margin-top:34px; padding:16px 8px 6px;
+    border-top:1px solid var(--ink-faint); position:relative;
+    display:flex; align-items:center; justify-content:space-between; gap:26px; flex-wrap:wrap;
+  }
+  .controls::before{
+    content:''; position:absolute; top:-8px; left:50%; transform:translateX(-50%);
+    width:16px; height:16px; background-color:var(--paper);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21C6.4 16.3 2.5 12.7 2.5 8.7 2.5 5.6 4.9 3.2 8 3.2c1.7 0 3.2.9 4 2.2.8-1.3 2.3-2.2 4-2.2 3.1 0 5.5 2.4 5.5 5.5 0 4-3.9 7.6-9.5 12.3z' fill='%23b5434e'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:center; background-size:contain;
+  }
+  .now{display:flex; flex-direction:column; gap:1px}
+  .now-title{font-family:'Aref Ruqaa','Amiri',serif; font-size:1.5rem; line-height:1.35; color:var(--crimson-deep)}
+  .now-sub{font-weight:700; font-size:.78rem; word-spacing:.2em; color:var(--ink-soft)}
+  .progress{display:flex; align-items:center}
+  .dots{display:flex; gap:8px; align-items:center}
+  .dot{width:12px; height:12px; display:inline-flex; transition:transform .25s}
+  .dot svg{width:100%; height:100%}
+  .dot path{fill:none; stroke:rgba(71,50,45,.38); stroke-width:2}
+  .dot.done path{fill:rgba(181,67,78,.5); stroke:none}
+  .dot.current{transform:scale(1.5)}
+  .dot.current path{fill:var(--crimson); stroke:none}
+  .time{margin-inline-start:16px; min-width:2.8em; font-size:1.1rem; color:var(--ink-soft);
+    font-variant-numeric:tabular-nums}
+  .vol{display:flex; align-items:center; gap:12px}
+  .icon-btn{width:34px; height:34px; background:none; border:none; padding:5px; cursor:pointer}
+  .icon-btn svg{width:100%; height:100%; overflow:visible}
+  .icon-btn .spk{fill:var(--ink)}
+  .icon-btn .wave{fill:none; stroke:var(--ink); stroke-width:1.7; stroke-linecap:round}
+  .icon-btn .slash{display:none; fill:none; stroke:var(--crimson); stroke-width:1.9; stroke-linecap:round}
+  .icon-btn:hover .spk{fill:var(--crimson-deep)}
+  .icon-btn:hover .wave{stroke:var(--crimson-deep)}
+  .icon-btn.muted .wave{display:none}
+  .icon-btn.muted .slash{display:block}
+
+  input[type=range]{
+    -webkit-appearance:none; appearance:none; width:112px; height:18px;
+    background:transparent; cursor:pointer;
+  }
+  input[type=range]::-webkit-slider-runnable-track{height:2px; background:var(--ink-faint)}
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:17px; height:17px; margin-top:-7.5px; border:none;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21C6.4 16.3 2.5 12.7 2.5 8.7 2.5 5.6 4.9 3.2 8 3.2c1.7 0 3.2.9 4 2.2.8-1.3 2.3-2.2 4-2.2 3.1 0 5.5 2.4 5.5 5.5 0 4-3.9 7.6-9.5 12.3z' fill='%23b5434e'/%3E%3C/svg%3E") no-repeat center / contain;
+  }
+  input[type=range]::-moz-range-track{height:2px; background:var(--ink-faint)}
+  input[type=range]::-moz-range-thumb{
+    width:17px; height:17px; border:none;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21C6.4 16.3 2.5 12.7 2.5 8.7 2.5 5.6 4.9 3.2 8 3.2c1.7 0 3.2.9 4 2.2.8-1.3 2.3-2.2 4-2.2 3.1 0 5.5 2.4 5.5 5.5 0 4-3.9 7.6-9.5 12.3z' fill='%23b5434e'/%3E%3C/svg%3E") no-repeat center / contain;
+  }
+
+  .dedication{
+    margin:22px 0 36px; padding:0 28px; max-width:620px; text-align:center;
+    font-size:1.18rem; line-height:1.9; color:var(--ink-soft);
+  }
+
+  .toast{
+    position:fixed; left:50%; bottom:26px; z-index:60;
+    transform:translate(-50%,16px); opacity:0; pointer-events:none;
+    background:var(--paper-2); border:1px solid var(--ink-soft); color:var(--ink);
+    padding:10px 22px; font-size:1.05rem; transition:.35s ease;
+  }
+  .toast.show{opacity:1; transform:translate(-50%,0)}
+
+  /* ---------- التجاوب ---------- */
+  @media (max-width:900px){
+    :root{--heart:min(340px, 62vw)}
+    .portrait{width:196px}
+    .photo{max-height:340px}
+    .stage{gap:6px}
+  }
+  @media (max-width:560px){
+    .stage{flex-direction:column; gap:10px}
+    .pair{display:flex; gap:14px; order:2; justify-content:center}
+    .heart-zone{order:1; margin-bottom:2px}
+    .portrait{width:min(46vw, 168px)}
+    .photo{max-height:220px; object-position:50% 18%}
+    .controls{justify-content:center; text-align:center}
+    .now{align-items:center}
+  }
+  @media (max-height:800px){
+    .header{padding-top:26px}
+    .stage{margin-top:14px}
+    .controls{margin-top:20px}
+    .since{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="letter-frame" aria-hidden="true"></div>
+
+<header class="header">
+  <svg class="flourish" viewBox="0 0 260 30" aria-hidden="true">
+    <path class="fl" d="M14 15 C52 2 88 28 116 15"/>
+    <path class="fl" d="M246 15 C208 2 172 28 144 15"/>
+    <path class="fl-heart" d="M130 22.5c-3.5-2.9-6-5.1-6-7.8 0-2 1.6-3.7 3.7-3.7 1.1 0 2.1.5 2.3 1.4.2-.9 1.2-1.4 2.3-1.4 2.1 0 3.7 1.7 3.7 3.7 0 2.7-2.5 4.9-6 7.8z"/>
+  </svg>
+  <!-- ✏️ عدّلوا العنوان والأسماء هنا (هي / هو placeholders — بدّلوها بالأسماء الحقيقية) -->
+  <h1 class="title">هي <span class="amp">و</span> هو</h1>
+  <p class="subtitle">قلبان · لحنٌ واحد</p>
+  <p class="since">معًا منذ الرابع عشر من فبراير</p>
+</header>
+
+<main class="stage" id="stage">
+
+  <!-- الخيط الأحمر الذي يربطهما، تسري عليه النوتات ما دام اللحن يعزف -->
+  <svg class="thread-svg" id="threadSvg" aria-hidden="true">
+    <path id="threadPath" d=""/>
+    <g id="knotA" class="knot" opacity="0"><circle r="3.2"/><path d="M-4.5 -4.5 L4.5 4.5 M-4.5 4.5 L4.5 -4.5"/></g>
+    <g id="knotB" class="knot" opacity="0"><circle r="3.2"/><path d="M-4.5 -4.5 L4.5 4.5 M-4.5 4.5 L4.5 -4.5"/></g>
+    <g id="notesLayer" class="notes"></g>
+  </svg>
+
+  <div class="pair">
+
+    <!-- ======== صورتها ========
+         ✏️ الصورة الحالية برابط خارجي مؤقّت. لاستخدام ملف دائم: ضَعي صورتها باسم
+         her.jpg بجوار ملف الصفحة وبدّلي الرابط في src إلى "her.jpg".
+         إن فشل تحميل الصورة تظهر تلقائيًا الرسمة الحبرية الاحتياطية. -->
+    <figure class="portrait portrait--her" id="portraitHer">
+      <span class="tape tape--l" aria-hidden="true"></span>
+      <div class="portrait-frame">
+        <div class="photo-wrap">
+          <img class="photo" id="photoHer" decoding="async"
+            alt="هي"
+            src="https://z-cdn-media.chatglm.cn/files/e1656023-2177-4305-b8b6-dcaf861b9a70.png?auth_key=1891230026-e5c0fff7b3fe4dd1958d533d11fa003f-0-5da396cdcac2b7a509fbd15d96350aca"/>
+          <svg class="face" hidden viewBox="0 0 240 300" aria-hidden="true">
+            <path class="s" d="M112 52 C84 40 58 54 53 84 C47 114 54 144 46 176 C40 208 33 240 41 272 C42 284 48 292 57 288"/>
+            <path class="t" d="M54 96 C50 128 55 158 49 192 C45 220 41 246 46 266"/>
+            <path class="t" d="M84 58 C72 78 68 106 65 134 C61 166 54 198 52 230"/>
+            <path class="t" d="M46 186 C58 194 70 198 81 200"/>
+            <path class="s" d="M90 180 C89 190 90 198 88 204 C80 214 66 220 52 224"/>
+            <path class="t" d="M92 196 C98 199 104 200 110 200"/>
+            <path class="s" d="M112 52 C122 62 130 76 131 90 C131.5 97 128 100 126 102 C133 106 136 112 134 117 C133 119.5 129 120.5 127 121 C131 123 133 125.5 132 128 C130.5 129.5 127.5 129 126.5 130 C130 132 131 135 128 138 C123.5 142 117 142.5 113 146 C105 151 100 152 96 157 C92 162 90.5 170 90 180"/>
+            <path class="s" d="M112 52 C113 66 119 80 128 90"/>
+            <path class="t" d="M106 94 C110 90.5 116 89.5 121 92"/>
+            <path class="s" d="M107 106 C111 110.5 117 110.5 122 105.5"/>
+            <path class="t" d="M121.5 106 L125.5 109"/>
+            <path class="t" d="M119.5 108.5 L122.5 112.5"/>
+            <path class="t" d="M128 119 C129.5 118 131 118.5 131.5 120"/>
+            <path class="t" d="M122 131 C119.5 132.5 117 132.5 114.5 131"/>
+            <path class="t" d="M108 98 C104 106 103 114 104 122"/>
+            <circle class="mark" cx="113" cy="127.5" r="1"/>
+            <path class="t" d="M90 186 C95 197 101 203 107 206"/>
+            <circle class="pendant" cx="108.5" cy="208.5" r="2.2"/>
+            <g class="flower" transform="translate(94,54)">
+              <ellipse class="petal" cx="0" cy="-6.5" rx="3.1" ry="5"/>
+              <ellipse class="petal" cx="0" cy="-6.5" rx="3.1" ry="5" transform="rotate(72)"/>
+              <ellipse class="petal" cx="0" cy="-6.5" rx="3.1" ry="5" transform="rotate(144)"/>
+              <ellipse class="petal" cx="0" cy="-6.5" rx="3.1" ry="5" transform="rotate(216)"/>
+              <ellipse class="petal" cx="0" cy="-6.5" rx="3.1" ry="5" transform="rotate(288)"/>
+              <circle class="dot" r="2.3"/>
+            </g>
+            <ellipse class="blush" cx="111" cy="123" rx="8.5" ry="4.6"/>
+          </svg>
+        </div>
+      </div>
+      <figcaption>
+        <span class="name" id="nameHer">هي</span><!-- ✏️ بدّلي «هي» باسمها -->
+        <span class="tag">
+          <svg class="mini-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21C6.4 16.3 2.5 12.7 2.5 8.7 2.5 5.6 4.9 3.2 8 3.2c1.7 0 3.2.9 4 2.2.8-1.3 2.3-2.2 4-2.2 3.1 0 5.5 2.4 5.5 5.5 0 4-3.9 7.6-9.5 12.3z"/></svg>
+          <em>قلبُها ينبض هنا</em>
+        </span>
+      </figcaption>
+    </figure>
+
+    <!-- ======== صورته ========
+         ✏️ Same as above: put his photo as him.jpg beside the file and change
+         src to "him.jpg" for a permanent copy. -->
+    <figure class="portrait portrait--him" id="portraitHim">
+      <span class="tape tape--r" aria-hidden="true"></span>
+      <div class="portrait-frame">
+        <div class="photo-wrap">
+          <img class="photo" id="photoHim" decoding="async"
+            alt="هو"
+            src="https://z-cdn-media.chatglm.cn/files/963cd14c-b0ed-402f-8269-0844f6a4c23f.png?auth_key=1891230026-bc53f5c0b68e498080587e1b68acbb28-0-fbd6a107b77d9e411ddd6d13dd0feeb7"/>
+          <svg class="face" hidden viewBox="0 0 240 300" aria-hidden="true">
+            <path class="s" d="M128 52 C154 44 176 58 181 82 C185 103 180 120 178 134 C176 146 172 154 170 164"/>
+            <path class="t" d="M138 55 C150 61 160 71 165 83"/>
+            <path class="t" d="M170 80 C174 94 172 108 170 122"/>
+            <path class="t" d="M178 100 C180 114 178 128 175 140"/>
+            <path class="s" d="M128 52 C127 66 121 80 112 90"/>
+            <path class="s" d="M128 52 C118 62 110 76 109 90 C108.5 97 112 100 114 102 C107 106 104 112 106 117 C107 119.5 111 120.5 113 121 C109 123 107 125.5 108 128 C109.5 129.5 112.5 129 113.5 130 C110 132 109 135 112 138 C116.5 142 123 142.5 127 146 C135 151 140 152 144 157 C148 162 149.5 170 150 180"/>
+            <path class="s" d="M150 180 C151 190 150 198 152 204 C160 214 174 220 188 224"/>
+            <path class="s" d="M170 164 C169 176 168 188 167 198 C176 208 186 214 196 218"/>
+            <path class="t" d="M150 192 C156 197 160 203 162 209"/>
+            <path class="t" d="M134 94 C130 90.5 124 89.5 119 92"/>
+            <path class="s" d="M133 106 C129 110.5 123 110.5 118 105.5"/>
+            <path class="t" d="M118.5 106 L114.5 109"/>
+            <path class="t" d="M120.5 108.5 L117.5 112.5"/>
+            <path class="t" d="M112 119 C110.5 118 109 118.5 108.5 120"/>
+            <path class="t" d="M118 131 C120.5 132.5 123 132.5 125.5 131"/>
+            <path class="t" d="M141 105 C150 101 154 111 147 118 C143 121 140 117 141 111"/>
+            <ellipse class="blush" cx="129" cy="123" rx="8.5" ry="4.6"/>
+          </svg>
+        </div>
+      </div>
+      <figcaption>
+        <span class="name" id="nameHim">هو</span><!-- ✏️ بدّل «هو» باسمه -->
+        <span class="tag">
+          <svg class="mini-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21C6.4 16.3 2.5 12.7 2.5 8.7 2.5 5.6 4.9 3.2 8 3.2c1.7 0 3.2.9 4 2.2.8-1.3 2.3-2.2 4-2.2 3.1 0 5.5 2.4 5.5 5.5 0 4-3.9 7.6-9.5 12.3z"/></svg>
+          <em>قلبُه ينبض هنا</em>
+        </span>
+      </figcaption>
+    </figure>
+
+  </div>
+
+  <!-- ======== القلب: زرّ التشغيل والمُشكِّل الصوتي الحيّ ======== -->
+  <div class="heart-zone">
+    <canvas id="heartCanvas" width="420" height="420" aria-hidden="true"></canvas>
+    <button class="heart-btn" id="heartBtn" type="button" aria-pressed="false" aria-label="شغّل الأغنية أو أوقفها مؤقتًا">
+      <svg class="hit-svg" viewBox="0 0 420 420" aria-hidden="true"><path id="hitPath" class="hit" d=""/></svg>
+      <span class="glyphs" aria-hidden="true">
+        <svg class="glyph glyph-play" viewBox="0 0 24 24"><path d="M8.2 5.2v13.6L19.4 12z"/></svg>
+        <svg class="glyph glyph-pause" viewBox="0 0 24 24"><path d="M7.5 5h3.2v14H7.5zM13.3 5h3.2v14h-3.2z"/></svg>
+      </span>
+    </button>
+    <p class="hint" id="hint">اضغط القلب ليبدأ اللحن</p>
+  </div>
+
+</main>
+
+<footer class="controls">
+  <div class="now">
+    <span class="now-title" id="nowTitle">أغنيتنا</span>
+    <span class="now-sub" id="nowSub">لحن صندوق موسيقى · ٧٤ نبضة في الدقيقة · يعزف بلا نهاية</span>
+  </div>
+  <div class="progress">
+    <div class="dots" id="dots" aria-hidden="true"></div>
+    <span class="time" id="time">٠:٠٠</span>
+  </div>
+  <div class="vol">
+    <button class="icon-btn" id="muteBtn" type="button" aria-label="كتم الصوت">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path class="spk" d="M4.5 9.5v5h3.6l4.9 3.9V5.6L8.1 9.5H4.5z"/>
+        <path class="wave" d="M15.5 9.2a4.4 4.4 0 010 5.6"/>
+        <path class="wave" d="M17.8 7.4a7.4 7.4 0 010 9.2"/>
+        <path class="slash" d="M4.5 4.5l15 15"/>
+      </svg>
+    </button>
+    <input type="range" id="volume" min="0" max="1" step="0.01" value="0.8" aria-label="مستوى الصوت"/>
+  </div>
+</footer>
+
+<p class="dedication">مهما بعُدت المسافات بينهما، يظلّ اللحنُ نفسُه يعزفُ في قلبيهما.</p>
+
+<div id="toast" class="toast" role="status"></div>
+
+<script>
+(() => {
+'use strict';
+
+/* ╔══════════════════════════════════════════════════════════╗
+   ║  ✏️✏️✏️  الأغنية — SONG URL  ✏️✏️✏️                       ║
+   ║  لم يصل أي ملف صوتي مع رسالتك، لذا هذا المتغيّر فارغ.     ║
+   ║  ضع هنا رابط أغنيتك أو مسار ملف mp3 موضوع بجوار الصفحة:  ║
+   ║    مثال:  const SONG_URL = 'song.mp3';                   ║
+   ║  ستُحمَّل الأغنية وتُعزف عبر القلب المُشكِّل نفسه وتتكرر   ║
+   ║  بلا نهاية. وإن بقيت فارغة يُعزف اللحن المدمج بدلًا منها. ║
+   ╚══════════════════════════════════════════════════════════╝ */
+const SONG_URL = '';
+
+/* ================= أدوات وثوابت ================= */
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const TAU = Math.PI * 2;
+const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const HEART_D = 'M12 21C6.4 16.3 2.5 12.7 2.5 8.7 2.5 5.6 4.9 3.2 8 3.2c1.7 0 3.2.9 4 2.2.8-1.3 2.3-2.2 4-2.2 3.1 0 5.5 2.4 5.5 5.5 0 4-3.9 7.6-9.5 12.3z';
+const C = { paper:'#f2e7d3', crimson:'#b5434e', deep:'#872d38', soft:'#d97f86' };
+/* الأرقام العربية الهندية للعرض */
+const AR_DIGITS = '٠١٢٣٤٥٦٧٨٩';
+const arNum = n => String(n).replace(/\d/g, d => AR_DIGITS[d]);
+
+/* ================= هندسة القلب (منحنى بارامتري) ================= */
+const N = 220, BASE = 7.4, CX = 210, CY = 214;
+const pts = [];
+for (let i = 0; i < N; i++){
+  const t = i / N * TAU;
+  const x = 16 * Math.pow(Math.sin(t), 3);
+  const y = -(13*Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t));
+  pts.push({ x, y });
+}
+{
+  let ax = 0, ay = 0; pts.forEach(p => { ax += p.x; ay += p.y; }); ax /= N; ay /= N;
+  pts.forEach(p => { p.x -= ax; p.y -= ay; p.ang = Math.atan2(p.y, p.x); p.r = Math.hypot(p.x, p.y); });
+}
+const mini = new Path2D();
+for (let i = 0; i <= 36; i++){
+  const t = i / 36 * TAU;
+  const x = 16 * Math.pow(Math.sin(t), 3) / 18;
+  const y = -(13*Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t)) / 18 - 0.14;
+  i ? mini.lineTo(x, y) : mini.moveTo(x, y);
+}
+mini.closePath();
+
+/* ================= اللوحة ================= */
+const canvas = $('#heartCanvas');
+const g = canvas.getContext('2d');
+const DPR = Math.min(window.devicePixelRatio || 1, 2);
+canvas.width = 420 * DPR; canvas.height = 420 * DPR;
+g.setTransform(DPR, 0, 0, DPR, 0, 0);
+g.lineJoin = 'round';
+
+{
+  let d = '';
+  for (let i = 0; i <= N; i++){
+    const p = pts[i % N];
+    const x = CX + p.x * BASE * 1.1, y = CY + p.y * BASE * 1.1;
+    d += (i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1);
+  }
+  $('#hitPath').setAttribute('d', d + 'Z');
+}
+
+/* ================= الأغنية المدمجة (تُستخدم إن لم يُحدَّد SONG_URL) ================= */
+const BPM = 74, BEAT = 60/BPM, BAR = BEAT*4, LOOP = BAR*8;
+
+const MELODY = [
+  [0,0,76,1],[0,1,79,.5],[0,1.5,84,1.5],[0,3,83,.5],[0,3.5,79,.5],
+  [1,0,81,.5],[1,.5,79,.5],[1,1,74,1],[1,2,76,.5],[1,2.5,77,.5],[1,3,79,1],
+  [2,0,81,1],[2,1,76,1],[2,2,72,.5],[2,2.5,74,.5],[2,3,76,1],
+  [3,0,84,1.5],[3,1.5,81,.5],[3,2,79,.5],[3,2.5,81,.5],[3,3,79,1],
+  [4,0,76,.5],[4,.5,79,.5],[4,1,81,.5],[4,1.5,79,.5],[4,2,76,1],[4,3,74,1],
+  [5,0,74,1],[5,1,76,.5],[5,1.5,77,.5],[5,2,79,2],
+  [6,0,81,1],[6,1,84,1],[6,2,86,1],[6,3,84,1],
+  [7,0,83,1],[7,1,81,.5],[7,1.5,79,.5],[7,2,86,2],
+];
+const CHORDS = [
+  {root:48, tones:[48,55,60,64]}, {root:55, tones:[55,62,67,71]},
+  {root:57, tones:[57,64,69,72]}, {root:53, tones:[53,60,65,69]},
+  {root:48, tones:[48,55,60,64]}, {root:55, tones:[55,62,67,71]},
+  {root:53, tones:[53,60,65,69]}, {root:55, tones:[55,62,67,71]},
+];
+const PADS = [[60,64,67],[59,62,67],[57,60,64],[57,60,65],[60,64,67],[59,62,67],[57,60,65],[59,62,67]];
+const ARP = [0,1,2,3,2,1,2,1];
+
+let actx = null, analyser = null, bus, melodyBus, arpBus, comp, masterGain, wet = null;
+let freqData = null;
+let started = false, playing = false, songStart = 0, nextLoop = 0;
+let volume = 0.8, muted = false;
+
+/* حالة الأغنية الخارجية (عند تعبئة SONG_URL) */
+let songBuffer = null, songSource = null, useSong = false, songLoading = false;
+
+function makeIR(sec, decay){
+  const rate = actx.sampleRate, len = Math.floor(sec * rate);
+  const buf = actx.createBuffer(2, len, rate);
+  for (let ch = 0; ch < 2; ch++){
+    const d = buf.getChannelData(ch);
+    for (let i = 0; i < len; i++) d[i] = (Math.random()*2 - 1) * Math.pow(1 - i/len, decay);
+  }
+  return buf;
+}
+
+function buildAudio(){
+  const AC = window.AudioContext || window.webkitAudioContext;
+  actx = new AC();
+  bus = actx.createGain(); bus.gain.value = 0.85;
+  const conv = actx.createConvolver(); conv.buffer = makeIR(2.3, 2.6);
+  wet = actx.createGain(); wet.gain.value = 0.19;
+  bus.connect(conv); conv.connect(wet);
+  const sum = actx.createGain(); bus.connect(sum); wet.connect(sum);
+  analyser = actx.createAnalyser();
+  analyser.fftSize = 2048; analyser.smoothingTimeConstant = 0.78;
+  sum.connect(analyser);
+  comp = actx.createDynamicsCompressor();
+  comp.threshold.value = -16; comp.knee.value = 18; comp.ratio.value = 2.6;
+  comp.attack.value = 0.004; comp.release.value = 0.24;
+  analyser.connect(comp);
+  masterGain = actx.createGain(); masterGain.gain.value = muted ? 0 : volume;
+  comp.connect(masterGain); masterGain.connect(actx.destination);
+  const pan = v => {
+    if (actx.createStereoPanner){ const p = actx.createStereoPanner(); p.pan.value = v; p.connect(bus); return p; }
+    return bus;
+  };
+  melodyBus = pan(0.16); arpBus = pan(-0.16);
+  freqData = new Uint8Array(analyser.frequencyBinCount);
+}
+
+/* --- تحميل أغنية المستخدم وتشغيلها عبر نفس القلب المُشكِّل --- */
+async function loadSong(){
+  if (!SONG_URL || songBuffer || useSong || songLoading) return;
+  songLoading = true;
+  toast('جارٍ تحميل الأغنية…');
+  try{
+    const res = await fetch(SONG_URL);
+    if (!res.ok) throw new Error('http ' + res.status);
+    const buf = await res.arrayBuffer();
+    songBuffer = await actx.decodeAudioData(buf);
+    useSong = true;
+    if (wet) wet.gain.setTargetAtTime(0.10, actx.currentTime, 0.1); // صدى أخفّ لأغنية كاملة
+    $('#nowSub').textContent = `أغنيتنا · مدتها ${fmt(songBuffer.duration)} · تعزف بلا نهاية`;
+    toast('الأغنية جاهزة ♥');
+  }catch(e){
+    useSong = false;
+    toast('تعذّر تحميل الأغنية — سيُعزف اللحن المدمج بدلًا منها');
+  }
+  songLoading = false;
+}
+function startSongSource(){
+  songSource = actx.createBufferSource();
+  songSource.buffer = songBuffer;
+  songSource.loop = true;
+  const gs = actx.createGain(); gs.gain.value = 0.95;
+  songSource.connect(gs); gs.connect(bus);
+  songSource.start(0);
+  songStart = actx.currentTime;
+}
+
+/* --- أصوات اللحن المدمج --- */
+function pluck(midi, t, vel = 1, dur = 2, dest){
+  dest = dest || bus;
+  const f = mtof(midi);
+  const parts = [[1,.30,dur],[2.004,.10,dur*.6],[3.01,.075,dur*.35],[5.02,.026,dur*.22]];
+  for (const [mult, amp, dec] of parts){
+    const o = actx.createOscillator(); o.type = 'sine'; o.frequency.value = f * mult;
+    const e = actx.createGain();
+    e.gain.setValueAtTime(0.0001, t);
+    e.gain.exponentialRampToValueAtTime(Math.max(amp*vel, 0.0008), t + 0.01);
+    e.gain.exponentialRampToValueAtTime(0.0001, t + dec);
+    o.connect(e); e.connect(dest);
+    o.start(t); o.stop(t + dec + 0.06);
+  }
+}
+function padChord(midis, t, dur){
+  const lp = actx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 740; lp.Q.value = .4;
+  lp.connect(bus);
+  for (const m of midis){
+    const f = mtof(m);
+    for (const det of [-6, 6]){
+      const o = actx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = f; o.detune.value = det;
+      const e = actx.createGain();
+      e.gain.setValueAtTime(0.0001, t);
+      e.gain.linearRampToValueAtTime(0.026, t + dur*0.45);
+      e.gain.setValueAtTime(0.026, Math.max(t + dur*0.45, t + dur - 0.7));
+      e.gain.linearRampToValueAtTime(0.0001, t + dur);
+      o.connect(e); e.connect(lp);
+      o.start(t); o.stop(t + dur + 0.05);
+    }
+  }
+}
+function bassNote(midi, t, dur){
+  const f = mtof(midi);
+  [[1,'sine',.16],[2,'triangle',.05]].forEach(([mult, type, amp]) => {
+    const o = actx.createOscillator(); o.type = type; o.frequency.value = f * mult;
+    const e = actx.createGain();
+    e.gain.setValueAtTime(0.0001, t);
+    e.gain.linearRampToValueAtTime(amp, t + 0.06);
+    e.gain.setValueAtTime(amp, t + dur - 0.35);
+    e.gain.linearRampToValueAtTime(0.0001, t + dur);
+    o.connect(e); e.connect(bus);
+    o.start(t); o.stop(t + dur + 0.05);
+  });
+}
+function thump(t, vel){
+  const o = actx.createOscillator(); o.type = 'sine';
+  o.frequency.setValueAtTime(66, t);
+  o.frequency.exponentialRampToValueAtTime(38, t + 0.14);
+  const e = actx.createGain();
+  e.gain.setValueAtTime(0.0001, t);
+  e.gain.exponentialRampToValueAtTime(0.55 * vel, t + 0.012);
+  e.gain.exponentialRampToValueAtTime(0.0001, t + 0.26);
+  o.connect(e); e.connect(bus);
+  o.start(t); o.stop(t + 0.3);
+}
+
+function scheduleLoop(idx, t0){
+  const sec = Math.min(idx, 3);
+  for (const [b, bt, m, d] of MELODY){
+    const t = t0 + b*BAR + bt*BEAT + (Math.random() - 0.5) * 0.012;
+    const vel = (0.85 + Math.random()*0.15) * (idx === 0 ? 0.9 : 1);
+    pluck(m, t, vel, Math.max(1.25, d*BEAT*1.7), melodyBus);
+    if (sec >= 3) pluck(m + 12, t + 0.013, vel*0.22, d*BEAT*1.1, melodyBus);
+  }
+  for (let b = 0; b < 8; b++){
+    const ch = CHORDS[b];
+    for (let e = 0; e < 8; e++){
+      const t = t0 + b*BAR + e*BEAT*0.5 + (Math.random() - 0.5) * 0.01;
+      const vel = (e === 0 ? 0.6 : (e === 3 ? 0.54 : 0.45)) + (sec >= 1 ? 0.08 : 0);
+      pluck(ch.tones[ARP[e]], t, vel * (0.9 + Math.random()*0.2), 1.4, arpBus);
+    }
+  }
+  if (sec >= 1){
+    for (let b = 0; b < 8; b++){
+      bassNote(CHORDS[b].root - 12, t0 + b*BAR, BAR);
+      thump(t0 + b*BAR, 1);              thump(t0 + b*BAR + 0.32, 0.55);
+      thump(t0 + b*BAR + 2*BEAT, 0.85);  thump(t0 + b*BAR + 2*BEAT + 0.32, 0.5);
+    }
+  }
+  if (sec >= 2) for (let b = 0; b < 8; b++) padChord(PADS[b], t0 + b*BAR, BAR + 0.2);
+}
+
+function tick(){
+  if (useSong) return; // الأغنية الخارجية لا تحتاج مجدولًا
+  const horizon = actx.currentTime + 1.2;
+  while (songStart + nextLoop*LOOP < horizon){
+    scheduleLoop(nextLoop, songStart + nextLoop*LOOP);
+    nextLoop++;
+  }
+}
+
+/* ================= الخيط الأحمر بين الإطارين ================= */
+const threadPathEl = $('#threadPath'), notesLayer = $('#notesLayer');
+let threadLen = 0;
+
+const NOTE = `<svg x="-8" y="-13" width="16" height="22" viewBox="0 0 16 22">
+  <ellipse cx="5.1" cy="17" rx="4.4" ry="3.2" transform="rotate(-18 5.1 17)" fill="currentColor"/>
+  <path d="M9.2 15.5 V2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+  <path d="M9.2 2 C13.6 3.8 14.2 7.6 11.6 10.4" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+</svg>`;
+const travelers = [];
+for (let i = 0; i < 7; i++){
+  const el = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  el.setAttribute('class', 'note'); el.setAttribute('opacity', '0');
+  el.innerHTML = NOTE;
+  notesLayer.appendChild(el);
+  travelers.push({ el, p:(i/7 + Math.random()*0.08) % 1, dir: i % 2 ? 1 : -1, wait: Math.random()*2 });
+}
+
+function layoutThread(){
+  const stage = $('#stage'), svg = $('#threadSvg');
+  const sw = stage.clientWidth, sh = stage.clientHeight;
+  if (!sw) return;
+  svg.setAttribute('viewBox', `0 0 ${sw} ${sh}`);
+  svg.setAttribute('width', sw); svg.setAttribute('height', sh);
+  const st = stage.getBoundingClientRect();
+  const her = $('#portraitHer .portrait-frame').getBoundingClientRect();
+  const him = $('#portraitHim .portrait-frame').getBoundingClientRect();
+  /* محايد تجاه الاتجاه: نتعرّف على الإطار الأيسر والأيمن بصريًّا */
+  const Lf = her.left < him.left ? her : him;
+  const Rt = her.left < him.left ? him : her;
+  let a, b, d;
+  if (sw < 560){
+    a = { x: Lf.right - st.left - 6, y: Lf.top - st.top - 8 };
+    b = { x: Rt.left - st.left + 6, y: Rt.top - st.top - 8 };
+    const my = Math.min(a.y, b.y) - 26;
+    d = `M ${a.x} ${a.y} C ${a.x+40} ${my}, ${b.x-40} ${my}, ${b.x} ${b.y}`;
+  } else {
+    a = { x: Lf.right - st.left - 4, y: Lf.top - st.top + Lf.height*0.40 };
+    b = { x: Rt.left - st.left + 4, y: Rt.top - st.top + Rt.height*0.40 };
+    const hc = canvas.getBoundingClientRect();
+    const drop = Math.max(14, (hc.top - st.top + hc.height*0.52 - (a.y + b.y)/2) / 0.75);
+    const avgY = (a.y + b.y)/2;
+    d = `M ${a.x} ${a.y} C ${a.x+70} ${avgY+drop}, ${b.x-70} ${avgY+drop}, ${b.x} ${b.y}`;
+  }
+  threadPathEl.setAttribute('d', d);
+  threadLen = threadPathEl.getTotalLength();
+  const place = (k, p) => { k.setAttribute('transform', `translate(${p.x} ${p.y})`); k.setAttribute('opacity', '1'); };
+  place($('#knotA'), a); place($('#knotB'), b);
+}
+addEventListener('load', layoutThread);
+addEventListener('resize', () => { clearTimeout(layoutThread._t); layoutThread._t = setTimeout(layoutThread, 150); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutThread);
+setTimeout(layoutThread, 400);
+/* إعادة حساب الخيط عند أي تغيّر في أبعاد المسرح (تحميل الصور مثلًا) */
+if (window.ResizeObserver){
+  new ResizeObserver(() => { clearTimeout(layoutThread._t); layoutThread._t = setTimeout(layoutThread, 90); })
+    .observe($('#stage'));
+}
+
+/* ================= الصور: تحميل سليم + رسمة احتياطية ================= */
+function setupPhoto(id){
+  const img = document.getElementById(id);
+  if (!img) return;
+  const wrap = img.closest('.photo-wrap');
+  const done = () => { if (wrap) wrap.classList.add('ok'); layoutThread(); };
+  const fail = () => {
+    img.hidden = true;
+    const face = wrap && wrap.querySelector('.face');
+    if (face) face.hidden = false;
+    layoutThread();
+  };
+  if (img.complete){
+    img.naturalWidth > 0 ? done() : fail();
+  } else {
+    img.addEventListener('load', done, { once:true });
+    img.addEventListener('error', fail, { once:true });
+  }
+}
+setupPhoto('photoHer');
+setupPhoto('photoHim');
+
+/* ================= حالة التمثيل البصري ================= */
+const w = new Float32Array(N);
+const particles = [];
+let env = 0, envRel = 0, envPeak = 0.18, treble = 0, kick = 0, fillAlpha = 0, curScale = 1;
+let idleT = 0, idlePulse = 0, dubPending = -1;
+const idlePeriod = 1.15;
+let beatCd = 0; const envHist = [];
+
+function ring(alpha, speed){ particles.push({ type:'ring', r:70, age:0, life:0.9, alpha, speed }); }
+function spawnBurst(n){
+  if (reduced) return;
+  for (let i = 0; i < n; i++){
+    const idx = Math.floor(Math.random()*N), p = pts[idx];
+    const r = (p.r*BASE + w[idx]*BASE*0.34) * curScale;
+    particles.push({
+      type:'h', x: CX + Math.cos(p.ang)*r, y: CY + Math.sin(p.ang)*r,
+      vx: Math.cos(p.ang)*(26 + Math.random()*70), vy: Math.sin(p.ang)*(26 + Math.random()*70) - 18,
+      rot: Math.random()*TAU, vr: (Math.random() - 0.5)*1.6,
+      s: 3.5 + Math.random()*6.5, age: 0, life: 1.3 + Math.random()*1.3
+    });
+  }
+  if (particles.length > 110) particles.splice(0, particles.length - 110);
+}
+function spawnAmbient(){
+  particles.push({
+    type:'h', x: CX + (Math.random() - 0.5)*70, y: CY - 95 - Math.random()*30,
+    vx: (Math.random() - 0.5)*10, vy: -22, rot: Math.random()*TAU, vr: 0.4,
+    s: 3 + Math.random()*3, age: 0, life: 2.6, alphaMul: 0.45
+  });
+}
+function spawnSparkle(){
+  const idx = Math.floor(Math.random()*N), p = pts[idx];
+  const r = (p.r*BASE + w[idx]*BASE*0.34) * curScale;
+  particles.push({ type:'s', x: CX + Math.cos(p.ang)*r, y: CY + Math.sin(p.ang)*r, age: 0, life: 0.45 + Math.random()*0.25 });
+}
+
+function heartPathAt(scale, dispMult, extra){
+  g.beginPath();
+  for (let i = 0; i < N; i++){
+    const p = pts[i];
+    const r = (p.r*BASE + extra + w[i]*BASE*0.34*dispMult) * scale;
+    const x = CX + Math.cos(p.ang)*r, y = CY + Math.sin(p.ang)*r;
+    i ? g.lineTo(x, y) : g.moveTo(x, y);
+  }
+  g.closePath();
+}
+
+function drawScene(scale){
+  g.clearRect(0, 0, 420, 420);
+  heartPathAt(scale, 1.6, 11);
+  g.strokeStyle = `rgba(135,45,56,${(0.10 + 0.25*fillAlpha + 0.10*envRel).toFixed(3)})`;
+  g.lineWidth = 1.2; g.stroke();
+  heartPathAt(scale, 2.2, 22);
+  g.strokeStyle = `rgba(135,45,56,${(0.05 + 0.13*fillAlpha + 0.05*envRel).toFixed(3)})`;
+  g.lineWidth = 1; g.stroke();
+  heartPathAt(scale, 1, 0);
+  if (fillAlpha > 0.01){ g.fillStyle = `rgba(181,67,78,${(0.94*fillAlpha).toFixed(3)})`; g.fill(); }
+  g.strokeStyle = C.deep; g.lineWidth = 3; g.stroke();
+  if (fillAlpha > 0.05){
+    heartPathAt(scale*0.88, 0.7, 0);
+    g.fillStyle = `rgba(135,45,56,${(0.20*fillAlpha).toFixed(3)})`; g.fill();
+  }
+  heartPathAt(scale*0.62, 0.45, -2);
+  g.strokeStyle = fillAlpha > 0.4
+    ? `rgba(242,231,211,${(0.5*fillAlpha).toFixed(3)})`
+    : `rgba(181,67,78,${(0.4 + 0.25*envRel).toFixed(3)})`;
+  g.lineWidth = 1.4; g.stroke();
+}
+
+function updateParticles(dt){
+  for (let i = particles.length - 1; i >= 0; i--){
+    const p = particles[i]; p.age += dt;
+    if (p.age >= p.life){ particles.splice(i, 1); continue; }
+    if (p.type === 'h'){
+      p.vx *= Math.exp(-dt*1.2);
+      p.vy += (-30 - p.vy) * dt * 1.1;
+      p.x += p.vx*dt + Math.sin(p.age*3 + p.rot)*8*dt;
+      p.y += p.vy*dt; p.rot += p.vr*dt;
+    }
+  }
+}
+function drawParticles(){
+  for (const p of particles){
+    const k = 1 - p.age/p.life;
+    if (p.type === 'ring'){
+      g.globalAlpha = p.alpha * k;
+      g.strokeStyle = C.crimson; g.lineWidth = 1.4;
+      g.beginPath(); g.arc(CX, CY, p.r + p.age*p.speed, 0, TAU); g.stroke();
+    } else if (p.type === 'h'){
+      g.globalAlpha = k * (p.alphaMul || 1);
+      g.fillStyle = C.crimson;
+      g.save(); g.translate(p.x, p.y); g.rotate(p.rot); g.scale(p.s, p.s);
+      g.fill(mini); g.restore();
+    } else {
+      const kk = Math.sin(Math.PI * (p.age/p.life));
+      g.globalAlpha = kk * 0.85; g.strokeStyle = C.soft; g.lineWidth = 1.3;
+      const L = 2 + 6*kk;
+      g.save(); g.translate(p.x, p.y); g.rotate(Math.PI/4);
+      g.beginPath(); g.moveTo(-L, 0); g.lineTo(L, 0); g.moveTo(0, -L); g.lineTo(0, L);
+      g.stroke(); g.restore();
+    }
+  }
+  g.globalAlpha = 1;
+}
+
+function updateNotes(dt){
+  if (!threadLen){ notesLayer.style.opacity = 0; return; }
+  notesLayer.style.opacity = playing ? 1 : 0;
+  if (!playing) return;
+  for (const n of travelers){
+    if (n.wait > 0){ n.wait -= dt; n.el.setAttribute('opacity', '0'); continue; }
+    n.p += dt * n.dir * (0.07 + 0.085*envRel);
+    if (n.p > 1 || n.p < 0){
+      n.p = n.dir > 0 ? 0 : 1; n.dir *= -1;
+      n.wait = 0.5 + Math.random()*2.4;
+      n.el.setAttribute('opacity', '0'); continue;
+    }
+    const L = n.p * threadLen;
+    const pt = threadPathEl.getPointAtLength(L);
+    const pt2 = threadPathEl.getPointAtLength(Math.max(0, Math.min(threadLen, L + 3*n.dir)));
+    const a = Math.atan2(pt2.y - pt.y, pt2.x - pt.x) * 180/Math.PI;
+    const o = Math.min(1, Math.sin(Math.PI * n.p) * 4);
+    n.el.setAttribute('opacity', o.toFixed(2));
+    n.el.setAttribute('transform',
+      `translate(${pt.x.toFixed(1)} ${pt.y.toFixed(1)}) rotate(${(a*0.25).toFixed(1)}) scale(${n.dir < 0 ? -1 : 1} 1)`);
+  }
+}
+
+/* ================= عناصر الواجهة ================= */
+const heartBtn = $('#heartBtn'), hintEl = $('#hint'), timeEl = $('#time');
+const miniHearts = $$('.mini-heart'), frames = $$('.portrait-frame');
+const dots = [];
+{
+  const box = $('#dots');
+  for (let i = 0; i < 8; i++){
+    const s = document.createElement('span'); s.className = 'dot';
+    s.innerHTML = `<svg viewBox="0 0 24 24"><path d="${HEART_D}"/></svg>`;
+    box.appendChild(s); dots.push(s);
+  }
+}
+const fmt = s => { s = Math.floor(s); return arNum(Math.floor(s/60)) + ':' + arNum(String(s%60).padStart(2,'0')); };
+let toastT;
+function toast(msg){
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 3200);
+}
+function setHint(){ hintEl.textContent = playing ? 'اضغط القلب للإيقاف مؤقتًا' : 'اضغط القلب ليبدأ اللحن'; }
+
+function updateProgress(){
+  const el = (actx && started) ? Math.max(0, actx.currentTime - songStart) : 0;
+  timeEl.textContent = fmt(el);
+  const dur = (useSong && songBuffer) ? songBuffer.duration : LOOP;
+  const bi = Math.floor((el % dur) / dur * 8);
+  dots.forEach((d, i) => { d.classList.toggle('done', i < bi); d.classList.toggle('current', i === bi); });
+}
+function updateHeartsUI(){
+  const s = 1 + 0.28 * Math.max(envRel, idlePulse*0.85);
+  for (const m of miniHearts) m.style.transform = `scale(${s.toFixed(3)})`;
+  const ps = 1 + 0.015 * envRel;
+  for (const f of frames) f.style.transform = playing ? `scale(${ps.toFixed(4)})` : '';
+}
+
+/* ================= تشغيل / إيقاف مؤقت ================= */
+heartBtn.addEventListener('click', async () => {
+  if (!playing){
+    let ok = true;
+    try{
+      if (!actx) buildAudio();
+      if (actx.state === 'suspended') await actx.resume();
+      if (!started){
+        await loadSong();          // تُحمَّل أغنية المستخدم إن وُجدت
+        started = true;
+        if (useSong && songBuffer){
+          startSongSource();       // الأغنية الحقيقية عبر نفس المُحلِّل والقلب
+        } else {
+          songStart = actx.currentTime + 0.15;
+          nextLoop = 0;
+          setInterval(tick, 200); tick();
+        }
+        ring(0.22, 260); spawnBurst(12);
+      }
+    } catch(err){ ok = false; toast('تعذّر تشغيل الصوت في هذا المتصفّح.'); }
+    if (ok){
+      playing = true;
+      document.body.classList.add('is-playing');
+      heartBtn.setAttribute('aria-pressed', 'true');
+      setHint();
+    }
+  } else {
+    playing = false;
+    try{ if (actx) actx.suspend(); }catch(e){}
+    document.body.classList.remove('is-playing');
+    heartBtn.setAttribute('aria-pressed', 'false');
+    setHint();
+  }
+});
+window.addEventListener('keydown', e => {
+  const tag = document.activeElement && document.activeElement.tagName;
+  if (e.code === 'Space' && tag !== 'BUTTON' && tag !== 'INPUT'){
+    e.preventDefault(); heartBtn.click();
+  }
+});
+
+/* ================= الصوت والكتم ================= */
+const volInput = $('#volume'), muteBtn = $('#muteBtn');
+function applyVol(){
+  if (masterGain) masterGain.gain.setTargetAtTime(muted ? 0 : volume, actx.currentTime, 0.03);
+}
+volInput.addEventListener('input', () => {
+  volume = parseFloat(volInput.value);
+  if (volume > 0 && muted){ muted = false; muteBtn.classList.remove('muted'); muteBtn.setAttribute('aria-label','كتم الصوت'); }
+  if (actx) applyVol();
+});
+muteBtn.addEventListener('click', () => {
+  muted = !muted;
+  muteBtn.classList.toggle('muted', muted);
+  muteBtn.setAttribute('aria-label', muted ? 'إلغاء الكتم' : 'كتم الصوت');
+  if (actx) applyVol();
+});
+
+/* ================= حلقة التحريك الرئيسة ================= */
+let last = performance.now(), lastUI = 0;
+function frame(now){
+  requestAnimationFrame(frame);
+  const dt = Math.min(0.05, (now - last)/1000); last = now;
+
+  /* --- قراءة الموسيقى (أغنية المستخدم أو اللحن المدمج — نفس المسار) --- */
+  if (playing && analyser) analyser.getByteFrequencyData(freqData);
+  else if (freqData) freqData.fill(0);
+  if (freqData){
+    for (let i = 0; i < N; i++){
+      const m = i / N, k = m < 0.5 ? m*2 : (1 - m)*2;
+      const b = 2 + Math.floor(k * 316);
+      const v = (freqData[b-1] + 2*freqData[b] + freqData[b+1]) / 1020;
+      const tgt = Math.pow(v, 1.35);
+      w[i] += (tgt - w[i]) * (tgt > w[i] ? 0.5 : 0.16);
+    }
+    let bass = 0; for (let b = 2; b <= 30; b++) bass += freqData[b]; bass /= 29*255;
+    env += (bass - env) * (bass > env ? 0.5 : 0.08);
+    let tr = 0; for (let b = 150; b <= 340; b += 4) tr += freqData[b]; tr /= 48*255;
+    treble += (tr - treble) * (tr > treble ? 0.5 : 0.12);
+  }
+  /* تطبيع تكيّفي: يعمل بنفس الجمال مع الأغاني الهادئة والصاخبة */
+  envPeak = Math.max(0.18, envPeak - dt*0.05, env);
+  envRel = Math.min(1, env / envPeak);
+
+  /* --- نبض القلب أثناء السكون (نبضة مزدوجة) --- */
+  idleT += dt;
+  if (idleT >= idlePeriod){
+    idleT -= idlePeriod; idlePulse = 1; dubPending = 0.30;
+    if (!playing && !reduced) spawnAmbient();
+  }
+  if (dubPending > 0){
+    dubPending -= dt;
+    if (dubPending <= 0){ idlePulse = Math.max(idlePulse, 0.66); dubPending = -1; }
+  }
+  idlePulse *= Math.exp(-dt*3.4);
+
+  /* --- كشف النبضات --- */
+  envHist.push(env); if (envHist.length > 60) envHist.shift();
+  const hAvg = envHist.reduce((a, b) => a + b, 0) / envHist.length;
+  beatCd -= dt;
+  if (playing && beatCd <= 0 && envRel > 0.5 && env > hAvg*1.22 + 0.014){
+    beatCd = 0.19; kick = 0.05 + 0.10*envRel;
+    spawnBurst(3 + Math.round(envRel*4 + Math.random()*3));
+    if (env > hAvg*1.5 + 0.04) ring(0.12, 150);
+  }
+  kick *= Math.exp(-dt*6.5);
+  if (playing && !reduced && treble > 0.14 && Math.random() < treble*0.55) spawnSparkle();
+
+  /* --- الرسم --- */
+  fillAlpha += ((playing ? 1 : 0) - fillAlpha) * Math.min(1, dt*2.6);
+  const breath = 0.016 * Math.sin(now/1000 * 1.3);
+  curScale = 1 + 0.085*envRel + kick + (playing ? 0 : 0.05*idlePulse) + breath*(playing ? 1 : 1.5);
+  updateParticles(dt);
+  drawScene(curScale);
+  drawParticles();
+  updateNotes(dt);
+  updateHeartsUI();
+  if (now - lastUI > 200){ lastUI = now; updateProgress(); }
+}
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
